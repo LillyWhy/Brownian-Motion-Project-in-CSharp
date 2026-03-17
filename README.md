@@ -1,7 +1,9 @@
 # Brownian_motion
 
-Aplikacja zaliczeniowa [Fizyka]
+Aplikacja zaliczeniowa [Fizyka
+]
 Autor projektu: Marcin Bubalik
+
 Github: 'https://github.com/LillyWhy/Brownian_motion'
 
 Opis:
