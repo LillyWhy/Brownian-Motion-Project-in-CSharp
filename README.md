@@ -12,7 +12,12 @@ Projekt przedstawiajacy Ruch browna czyli proces losowy wręcz chaoryczny, w kt�
 
 Projekt został napisany w języku C# za pomocą IDE ZED, oraz generuje ruch za pomocą prostego silnika graficznego Raylib-cs.
 
-Praca działa w 60 FPS (klatki na sekundę), aby nie obciążać procesora, zwiekszenie FPS może wpłynąć na jakość ruchu,
+Praca działa w od 1 do 240 FPS (klatki na sekundę)
+
+zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji,
+
+aby nie obciążać procesora, zwiekszenie FPS może wpłynąć na jakość ruchu,
+
 a także szybkość poruszania się cząsteczki.
 
 Każdy ruch cząsteczki jest zapisywany do pliku csv.
