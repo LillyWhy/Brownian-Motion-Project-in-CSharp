@@ -28,6 +28,14 @@ Wymagania sprzętowe:
 - Biblioteka Raylib-cs (https://github.com/ChrisDill/Raylib-cs)
 - Program do obsługi plików csv
 
+Platforma testowa:
+
+Macbook Pro 15-inch, 2018
+- Intel Core i7
+- 16GB RAM
+- GPU: Intel UHD Graphics 630
+- MacOS Sequoia 15.7.4
+
 Instrukcja instalacji Silnika Graficznego Raylib-cs:
 
 1. Sklonuj repozytorium projektu: `git clone https://github.com/LillyWhy/Brownian_motion.git`
