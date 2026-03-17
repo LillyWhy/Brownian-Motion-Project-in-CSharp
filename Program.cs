@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.IO;
+
 using Raylib_cs;
+using System.Security;
 
 namespace Brownian_motion
 {
@@ -9,29 +12,25 @@ namespace Brownian_motion
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Podaj liczbę ruchów /n");
+            int LiczbaRuchow = int.Parse(Console.ReadLine());
             const int windowsWidth = 800;
             const int windowsHeight = 600;
-
             Raylib.InitWindow(windowsWidth, windowsHeight, "Projekt Fizyka Marcin Bubalik - Ruch Browna");
-            Raylib.SetTargetFPS(60);
+            Raylib.SetTargetFPS(60); //Zwiększenie klatek na sekunde wypłynie na szybkość ruchu cząsteczki
 
-            Random random = new Random();
-            Particle particle = new Particle(random);
-            PointPosition position = new PointPosition(windowsWidth / 2, windowsHeight / 2);
-            particle.Position = position;
-            particle.Update();
+            Random generowanie = new Random();
+            float x = 0;
+            float y = 0;
 
+            List<Particle> czasteczki = new List<Particle>();
+            czasteczki.Add(new Particle(x, y));
 
-            while (!Raylib.WindowShouldClose())
-            {
-                Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.White);
-                particle.Draw();
-                particle.Update();
-                Raylib.EndDrawing();
-            }
+            using StreamWriter plik = new StreamWriter("czasteczki.csv");
+            plik.WriteLine("x,y");
+            plik.WriteLine($"{x},{y}");
 
-            Raylib.CloseWindow();
+            while
         }
     }
 }
