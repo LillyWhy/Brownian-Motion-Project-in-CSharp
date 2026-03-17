@@ -4,21 +4,19 @@ Aplikacja zaliczeniowa [Fizyka]
 
 Autor projektu: Marcin Bubalik
 
-Github: 'https://github.com/LillyWhy/Brownian_motion'
+Github: https://github.com/LillyWhy/Brownian_motion
 
 Opis Projektu:
 
-Projekt przedstawiajacy Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się losowo po płaszczyźnie.
+Projekt przedstawiajacy Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się po płaszczyźnie.
 
 Projekt został napisany w języku C# za pomocą IDE ZED, oraz generuje ruch za pomocą prostego silnika graficznego Raylib-cs.
 
-Praca działa w od 1 do 240 FPS (klatki na sekundę)
+Praca działa w przedziale od 1 do 240 FPS (klatki na sekundę)
 
 zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji,
 
-aby nie obciążać procesora, zwiekszenie FPS może wpłynąć na jakość ruchu,
-
-a także szybkość poruszania się cząsteczki.
+aby nie obciążać procesora zaleca się ustawieniu stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
 
 Każdy ruch cząsteczki jest zapisywany do pliku csv.
 
@@ -45,22 +43,23 @@ Stworzenie formatu, szablonu projektu.
 
 17.03.2026 v0.2
 
-Dodanie dodanie silnika graficznego (Raylib-cs) w celu poprawnej kompilacji na urządzeniach opartych na systemie MacOS
+Dodanie silnika graficznego (Raylib-cs) w celu poprawnej kompilacji na urządzeniach opartych na systemie MacOS
 
 17.03.2026 v0.3
 
-Dodanie zapisywania ruchu cząsteczki do pliku csv, poprawa jakości kodu.
+Implementacja zapisywania ruchu cząsteczki do pliku csv, poprawa jakości kodu.
 
 17.03.2026 v0.4
 
 Implementacja silnika graficznego Raylib-cs poprawa obługi plików csv.
 
-Testy kompilacji poprawa jakości kodu.
+Testy kompilacji poprawa jakości kodu w zakresie 1-240 FPS.
 
-17.03.2026 v0.5 Final
+Niestabilność symulacji powyzej 241 FPS.
 
-Wypuszczenie kodu do repozytorium.
-Ustawienie 20 FPS w silniku graficznym Raylib-cs.
+17.03.2026 v0.5
+
+Ustawienie stabilnych 15 FPS w silniku graficznym Raylib-cs.
 
 Wynik symulacji zaspisuje sie do pliku xls.
 
