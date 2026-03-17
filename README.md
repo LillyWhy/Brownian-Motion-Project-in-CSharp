@@ -1,4 +1,4 @@
-# Brownian_motion
+# Brownian Motion Project in C#
 
 Aplikacja zaliczeniowa [Fizyka]
 
