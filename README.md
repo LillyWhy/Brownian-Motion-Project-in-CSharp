@@ -10,6 +10,7 @@ Opis:
 Projekt przedstawiajacy Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się losowo po płaszczyźnie.
 Projekt został napisany w języku C# za pomocą IDE ZED, oraz z dodatakiem prostego silnika graficznego Raylib-cs.
 Praca działa w 60 FPS (klatki na sekundę), aby nie obciążać procesora, zwiekszenie FPS może wpłynąć na jakość ruchu, a także szybkość poruszania się cząsteczki.
+Każdy ruch cząsteczki jest zapisywany do pliku csv.
 
 Wymagania sprzętowe:
 
@@ -17,6 +18,7 @@ Wymagania sprzętowe:
 - System operacyjny: Windows, macOS, Linux
 - Pakiet Microsoft .NET w wersji 10.0+
 - Biblioteka Raylib-cs (https://github.com/ChrisDill/Raylib-cs)
+- Program do obsługi plików csv
 
 Instrukcja instalacji Silnika Graficznego Raylib-cs:
 
@@ -32,3 +34,6 @@ Stworzenie formatu, szablonu projektu.
 
 17.03.2026 v0.2
 Dodanie dodanie silnika graficznego (Raylib-cs) w celu poprawnej kompilacji na urządzeniach opartych na systemie MacOS
+
+17.03.2026 v0.3
+Dodanie zapisywania ruchu cząsteczki do pliku csv, poprawa jakości kodu.

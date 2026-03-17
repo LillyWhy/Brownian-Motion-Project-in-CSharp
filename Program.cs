@@ -30,7 +30,37 @@ namespace Brownian_motion
             plik.WriteLine("x,y");
             plik.WriteLine($"{x},{y}");
 
-            while
+            int CurrentPostion = 0;
+            bool SymulationEnds = false;
+
+            while (!Raylib.WindowShouldClose())
+            {
+                if (CurrentPostion < n)
+                {
+                    double fi = generowanie.NextDouble() * 2 * Math.PI;
+
+                    x = x + (float)Math.Cos(fi);
+                    y = y + (float)Math.Sin(fi);
+
+                    czasteczki.Add(new Particle(x, y));
+                    CurrentPostion++
+
+                    plik.WriteLine($"CurrentPostion,{x},{y}");
+
+                }
+                else if (!SymulationEnds)
+                {
+                    double s = Math.Sqrt(x * x + y * y);
+                    Console.WriteLine($"Symulacja zakończona");
+                    Console.WriteLine($"Końcowe położenie x={x}, y={y}");
+                    Console.WriteLine($"Odległość od początku: {s}");
+                    SymulationEnds = true;
+                }
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(Raylib.Color.White);
+
+
+            }
         }
     }
 }
