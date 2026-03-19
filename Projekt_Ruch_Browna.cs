@@ -6,10 +6,26 @@ using Raylib_cs;
 
 namespace Brownian_motion
 {
-    public class Particle
+    public class GenereatedNew
     {
         public Vector2 Pozycja;
 
+        public GenereatedNew(float x, float y)
+        {
+            Pozycja = new Vector2(x, y);
+        }
+
+        public void Aktualizuj(Random gen)
+        {
+            double fi = gen.NextDouble() * 2 * Math.PI;
+            Pozycja.X += (float)Math.Cos(fi);
+            Pozycja.Y += (float)Math.Sin(fi);
+        }
+    }
+
+    public class Particle
+    {
+        public Vector2 Pozycja;
         public Particle(float x, float y)
         {
             Pozycja = new Vector2(x, y);
@@ -23,8 +39,8 @@ namespace Brownian_motion
             Console.WriteLine("Podaj liczbe ruchow:");
             int LiczbaRuchow = int.Parse(Console.ReadLine());
 
-            const int windowsWidth = 800;
-            const int windowsHeight = 600;
+            const int windowsWidth = 1024;
+            const int windowsHeight = 768;
             Raylib.InitWindow(windowsWidth, windowsHeight, "Projekt Fizyka Marcin Bubalik - Ruch Browna");
             Raylib.SetTargetFPS(15);
 
@@ -34,6 +50,12 @@ namespace Brownian_motion
 
             List<Particle> czasteczki = new List<Particle>();
             czasteczki.Add(new Particle(x, y));
+
+            List<GenereatedNew> chmura = new List<GenereatedNew>();
+            for (int i = 0; i < 100; i++)
+            {
+                chmura.Add(new GenereatedNew(x, y));
+            }
 
             using StreamWriter plik = new StreamWriter("wyniki_symulacji.xls");
             plik.WriteLine("Krok;X;Y");
@@ -52,6 +74,12 @@ namespace Brownian_motion
                     y = y + (float)Math.Sin(fi);
 
                     czasteczki.Add(new Particle(x, y));
+
+                    foreach (GenereatedNew p in chmura)
+                    {
+                        p.Aktualizuj(generowanie);
+                    }
+
                     CurrentPosition++;
 
                     string xString = x.ToString().Replace('.', ',');
@@ -68,10 +96,17 @@ namespace Brownian_motion
                 }
 
                 Raylib.BeginDrawing();
+
                 Raylib.ClearBackground(Color.RayWhite);
 
                 Vector2 srodekEkranu = new Vector2(windowsWidth / 2, windowsHeight / 2);
                 float skala = 15.0f;
+
+                foreach (GenereatedNew p in chmura)
+                {
+                    Vector2 pozycjaNaEkranie = srodekEkranu + (p.Pozycja * skala);
+                    Raylib.DrawCircleV(pozycjaNaEkranie, 1.5f, new Color(100, 100, 100, 100));
+                }
 
                 for (int i = 0; i < czasteczki.Count - 1; i++)
                 {
@@ -83,13 +118,14 @@ namespace Brownian_motion
                 if (czasteczki.Count > 0)
                 {
                     Vector2 ostatniaPozycja = srodekEkranu + (czasteczki[czasteczki.Count - 1].Pozycja * skala);
-                    Raylib.DrawCircleV(ostatniaPozycja, 5, Color.Red);
+                    Raylib.DrawCircleV(ostatniaPozycja, 4, Color.Red);
                 }
 
                 Raylib.DrawText($"Krok: {CurrentPosition} / {LiczbaRuchow}", 10, 10, 20, Color.Black);
+
                 if (SimulationEnds)
                 {
-                    Raylib.DrawText("Symulacja zakonczona, wcisnij ESC aby wyjsc", 10, 40, 20, Color.Maroon);
+                    Raylib.DrawText("Symulacja zakonczona - Nacisnij ESC", 10, 40, 20, Color.Maroon);
                 }
 
                 Raylib.EndDrawing();
