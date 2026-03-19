@@ -8,15 +8,15 @@ Github: https://github.com/LillyWhy/Brownian_motion
 
 Opis Projektu:
 
-Projekt przedstawiajacy Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się po płaszczyźnie.
+Projekt przedstawia Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się po płaszczyźnie.
 
 Projekt został napisany w języku C# za pomocą IDE ZED, oraz generuje ruch za pomocą prostego silnika graficznego Raylib-cs.
 
 Praca działa w przedziale od 1 do 240 FPS (klatki na sekundę)
 
-zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji,
+Zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji
 
-aby nie obciążać procesora zaleca się ustawieniu stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
+Aby nie obciążać procesora zaleca się ustawieniu stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
 
 Każdy ruch cząsteczki jest zapisywany do pliku csv.
 
@@ -26,7 +26,7 @@ Wymagania sprzętowe:
 - System operacyjny: Windows, macOS, Linux
 - Pakiet Microsoft .NET w wersji 10.0+
 - Biblioteka Raylib-cs (https://github.com/ChrisDill/Raylib-cs)
-- Program do obsługi plików csv
+- Program do obsługi plików csv (Microsoft Office Exel, Libre Office Calc, OpenOffice)
 
 Platforma testowa:
 
@@ -41,7 +41,7 @@ Instrukcja instalacji Silnika Graficznego Raylib-cs:
 1. Sklonuj repozytorium projektu: `git clone https://github.com/LillyWhy/Brownian_motion.git`
 2. Otwórz projekt w swoim IDE (Visual Studio, JetBrains Rider, Visual Studio Code)
 3. Zainstaluj Raylib-cs jako pakiet NuGet w swoim projekcie za pomocą komendy w terminalu `dotnet add package Raylib-cs`
-4. Uruchom projekt
+4. Uruchom projekt komendą 'dotnet run `Nazwa projektu.cs`
 
 Historia zmian:
 
@@ -59,11 +59,11 @@ Implementacja zapisywania ruchu cząsteczki do pliku csv, poprawa jakości kodu.
 
 17.03.2026 v0.4
 
-Implementacja silnika graficznego Raylib-cs poprawa obługi plików csv.
+Poprawa obługi plików csv,xls
 
 Testy kompilacji poprawa jakości kodu w zakresie 1-240 FPS.
 
-Niestabilność symulacji powyzej 241 FPS.
+`Niestabilność symulacji powyzej 241 FPS`
 
 17.03.2026 v0.5
 
@@ -72,3 +72,9 @@ Ustawienie stabilnych 15 FPS w silniku graficznym Raylib-cs.
 Wynik symulacji zaspisuje sie do pliku xls.
 
 Wyniki są zapisywanie po przecinku { , }
+
+19.03.2026 v.06
+
+Zwiększenie okna symulacji do 1024 x 768
+
+Wprowadzenie dodatkowych cząsteczek w celu przedstawienia kolizji
