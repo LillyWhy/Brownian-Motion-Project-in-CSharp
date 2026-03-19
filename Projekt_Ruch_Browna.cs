@@ -37,7 +37,7 @@ namespace Brownian_motion
         static void Main(string[] args)
         {
             Console.WriteLine("Podaj liczbe ruchow:");
-            int LiczbaRuchow = int.Parse(Console.ReadLine());
+            int LiczbaRuchow = int.Parse(Console.ReadLine() ?? "");
 
             const int windowsWidth = 1024;
             const int windowsHeight = 768;
