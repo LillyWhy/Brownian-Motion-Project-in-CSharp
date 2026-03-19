@@ -10,6 +10,8 @@ Opis Projektu:
 
 Projekt przedstawia Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się po płaszczyźnie.
 
+![brownian_motion](https://github.com/user-attachments/assets/151bafb3-9606-4711-b9e5-3f6abfaf4bf3)
+
 Projekt został napisany w języku C# za pomocą IDE ZED, oraz generuje ruch za pomocą prostego silnika graficznego Raylib-cs.
 
 Praca działa w przedziale od 1 do 240 FPS (klatki na sekundę)
@@ -19,6 +21,11 @@ Zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji
 Aby nie obciążać procesora zaleca się ustawieniu stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
 
 Każdy ruch cząsteczki jest zapisywany do pliku csv.
+
+
+
+![resoults](https://github.com/user-attachments/assets/c8dfafd4-9d50-4180-84e3-87aa9d25e1a3)
+
 
 Wymagania sprzętowe:
 
