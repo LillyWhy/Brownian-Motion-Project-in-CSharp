@@ -1,3 +1,4 @@
+### POLISH
 # Brownian Motion Project in C#
 
 Aplikacja zaliczeniowa – projekt z fizyki.
@@ -51,3 +52,62 @@ Projekt korzysta z wrapper'a **Raylib-cs**. Aby silnik graficzny działał popra
    ```bash
    git clone [https://github.com/LillyWhy/Brownian_motion.git](https://github.com/LillyWhy/Brownian_motion.git)
 2. Uruchom Projekt dotnet run [Nazwa Projektu.cs]
+
+### See [LICENSE](LICENSE) for details.
+
+### ENGLISH
+
+# Brownian Motion Project in C#
+
+Academic Project – Physics Simulation.
+
+**Project Author:** Private  
+**GitHub:** [https://github.com/LillyWhy/Brownian_motion](https://github.com/LillyWhy/Brownian_motion)
+
+## Project Description
+
+This project simulates Brownian motion—a random, almost chaotic process in which a particle moves across a 2D plane.
+
+![brownian_motion](https://github.com/user-attachments/assets/151bafb3-9606-4711-b9e5-3f6abfaf4bf3)
+
+The application was developed in C# using the ZED IDE and utilizes the **Raylib-cs** graphics engine for rendering. 
+The simulation supports a range of 1 to 240 FPS (frames per second).
+
+**Important:** Excessive frame rates (above 241 FPS) may negatively impact simulation stability. To avoid unnecessary CPU load, it is recommended to remain within the stable 1-240 FPS range.
+
+Every movement of the particle is recorded in real-time to an external spreadsheet file for further analysis.
+
+![results](https://github.com/user-attachments/assets/c8dfafd4-9d50-4180-84e3-87aa9d25e1a3)
+
+## System Requirements
+
+- **Development Environment:** Visual Studio, JetBrains Rider, VS Code, or ZED.
+- **Operating System:** Windows, macOS, or Linux.
+- **SDK:** Microsoft .NET SDK 10.0+
+- **Graphics Library:** Raylib-cs ([GitHub Link](https://github.com/ChrisDill/Raylib-cs))
+- **Spreadsheet Software:** Microsoft Excel, LibreOffice Calc, or OpenOffice.
+
+## Test Platform
+
+**MacBook Pro 15-inch, 2018**
+- **Processor:** Intel Core i7
+- **RAM:** 16GB
+- **GPU:** Intel UHD Graphics 630
+- **OS:** macOS Sequoia 15.7.4
+
+## Installation and Setup
+
+### 1. Raylib Engine Installation
+This project uses the **Raylib-cs** wrapper. To ensure the graphics engine runs correctly, make sure the Raylib binaries are installed on your system:
+- **Windows:** `.dll` files are usually handled automatically via the NuGet package.
+- **macOS:** Install via Homebrew:  
+  `brew install raylib`
+- **Linux:** Install the development package for your distribution, e.g., Debian/Ubuntu:  
+  `sudo apt install libraylib-dev`
+
+### 2. Downloading and Running
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/LillyWhy/Brownian_motion.git](https://github.com/LillyWhy/Brownian_motion.git)
+
+### See [LICENSE](LICENSE) for details.
