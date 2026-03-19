@@ -1,87 +1,53 @@
 # Brownian Motion Project in C#
 
-Aplikacja zaliczeniowa [Fizyka]
+Aplikacja zaliczeniowa – projekt z fizyki.
 
-Autor projektu: Marcin Bubalik
+**Autor projektu:** Marcin Bubalik  
+**GitHub:** [https://github.com/LillyWhy/Brownian_motion](https://github.com/LillyWhy/Brownian_motion)
 
-Github: https://github.com/LillyWhy/Brownian_motion
+## Opis Projektu
 
-Opis Projektu:
-
-Projekt przedstawia Ruch browna czyli proces losowy wręcz chaoryczny, w którym cząsteczka porusza się po płaszczyźnie.
+Projekt przedstawia ruch Browna, czyli proces losowy, wręcz chaotyczny, w którym cząsteczka porusza się po płaszczyźnie.
 
 ![brownian_motion](https://github.com/user-attachments/assets/151bafb3-9606-4711-b9e5-3f6abfaf4bf3)
 
-Projekt został napisany w języku C# za pomocą IDE ZED, oraz generuje ruch za pomocą prostego silnika graficznego Raylib-cs.
+Aplikacja została napisana w języku C# przy użyciu IDE ZED. Generuje ruch za pomocą wydajnego silnika graficznego Raylib-cs.
+Symulacja pozwala na działanie w przedziale od 1 do 240 FPS (klatek na sekundę). 
 
-Praca działa w przedziale od 1 do 240 FPS (klatki na sekundę)
+**Ważne:** Zbyt duża ilość FPS może wpłynąć negatywnie na stabilność symulacji (powyżej 241 FPS). Aby nie obciążać procesora, zaleca się nie przekraczać stabilnych wartości renderowania w silniku Raylib-cs.
 
-Zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji
-
-Aby nie obciążać procesora, zaleca się nie przekraczać stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
-
-Każdy ruch cząsteczki jest zapisywany do pliku csv.
-
-
+Każdy ruch cząsteczki jest na bieżąco zapisywany do zewnętrznego pliku arkusza kalkulacyjnego w celu późniejszej analizy.
 
 ![resoults](https://github.com/user-attachments/assets/c8dfafd4-9d50-4180-84e3-87aa9d25e1a3)
 
+## Wymagania sprzętowe
 
-Wymagania sprzętowe:
-
-- Środowisko programistyczne z obsługą .NET: Visual Studio, JetBrains Rider, Visual Studio Code, ZED
+- Środowisko programistyczne z obsługą .NET: Visual Studio, JetBrains Rider, Visual Studio Code lub ZED
 - System operacyjny: Windows, macOS, Linux
-- Pakiet Microsoft .NET w wersji 10.0+
+- Pakiet Microsoft .NET SDK w wersji 10.0+
 - Biblioteka Raylib-cs (https://github.com/ChrisDill/Raylib-cs)
-- Program do obsługi plików csv (Microsoft Office Exel, Libre Office Calc, OpenOffice)
+- Program do obsługi plików CSV/XLS (Microsoft Office Excel, LibreOffice Calc, OpenOffice)
 
-Platforma testowa:
+## Platforma testowa
 
-Macbook Pro 15-inch, 2018
-- Intel Core i7
-- 16GB RAM
-- GPU: Intel UHD Graphics 630
-- MacOS Sequoia 15.7.4
+**MacBook Pro 15-inch, 2018**
+- Procesor: Intel Core i7
+- Pamięć: 16GB RAM
+- Karta graficzna: Intel UHD Graphics 630
+- System operacyjny: macOS Sequoia 15.7.4
 
-Instrukcja instalacji Silnika Graficznego Raylib-cs:
+## Instrukcja instalacji i uruchomienia
 
-1. Sklonuj repozytorium projektu: `git clone https://github.com/LillyWhy/Brownian_motion.git`
-2. Otwórz projekt w swoim IDE (Visual Studio, JetBrains Rider, Visual Studio Code)
-3. Zainstaluj Raylib-cs jako pakiet NuGet w swoim projekcie za pomocą komendy w terminalu `dotnet add package Raylib-cs`
-4. Uruchom projekt komendą 'dotnet run `Nazwa projektu.cs`
+### 1. Instalacja silnika Raylib
+Projekt korzysta z wrapper'a **Raylib-cs**. Aby silnik graficzny działał poprawnie, należy upewnić się, że w systemie znajdują się pliki binarne biblioteki Raylib.
+- **Windows:** Pliki `.dll` są zazwyczaj dołączane automatycznie przy instalacji pakietu NuGet.
+- **macOS:** Należy zainstalować Raylib za pomocą Homebrew:  
+  `brew install raylib` lub `dotnet add package Raylib-cs`
+- **Linux:** Należy zainstalować pakiet odpowiedni dla dystrybucji, np. Debian (APT):  
+  `sudo apt install libraylib-dev`
 
-Historia zmian:
-
-16.03.2026 v0.1
-
-Stworzenie formatu, szablonu projektu.
-
-17.03.2026 v0.2
-
-Dodanie silnika graficznego (Raylib-cs) w celu poprawnej kompilacji na urządzeniach opartych na systemie MacOS
-
-17.03.2026 v0.3
-
-Implementacja zapisywania ruchu cząsteczki do pliku csv, poprawa jakości kodu.
-
-17.03.2026 v0.4
-
-Poprawa obługi plików csv,xls
-
-Testy kompilacji poprawa jakości kodu w zakresie 1-240 FPS.
-
-`Niestabilność symulacji powyzej 241 FPS`
-
-17.03.2026 v0.5
-
-Ustawienie stabilnych 15 FPS w silniku graficznym Raylib-cs.
-
-Wynik symulacji zaspisuje sie do pliku xls.
-
-Wyniki są zapisywanie po przecinku { , }
-
-19.03.2026 v.06
-
-Zwiększenie okna symulacji do 1024 x 768
-
-Wprowadzenie dodatkowych cząsteczek w celu przedstawienia kolizji
+### 2. Pobranie i uruchomienie projektu
+1. Sklonuj repozytorium projektu: 
+   ```bash
+   git clone [https://github.com/LillyWhy/Brownian_motion.git](https://github.com/LillyWhy/Brownian_motion.git)
+2. Uruchom Projekt dotnet run [Nazwa Projektu.cs]
