@@ -61,7 +61,7 @@ Projekt korzysta z wrapper'a **Raylib-cs**. Aby silnik graficzny działał popra
 
 Academic Project – Physics Simulation.
 
-**Project Author:** Private  
+**Project Author:** Marcin Bubalik  
 **GitHub:** [https://github.com/LillyWhy/Brownian_motion](https://github.com/LillyWhy/Brownian_motion)
 
 ## Project Description
