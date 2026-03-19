@@ -18,7 +18,7 @@ Praca działa w przedziale od 1 do 240 FPS (klatki na sekundę)
 
 Zbyt duza ilość FPS może wpłynąć negatwynie na stabilność symulacji
 
-Aby nie obciążać procesora zaleca się ustawieniu stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
+Aby nie obciążać procesora, zaleca się nie przekraczać stabilnych FPS (1-240) w silniku graficznym Raylib-cs.
 
 Każdy ruch cząsteczki jest zapisywany do pliku csv.
 

@@ -42,7 +42,7 @@ namespace Brownian_motion
             const int windowsWidth = 1024;
             const int windowsHeight = 768;
             Raylib.InitWindow(windowsWidth, windowsHeight, "Projekt Fizyka Marcin Bubalik - Ruch Browna");
-            Raylib.SetTargetFPS(15);
+            Raylib.SetTargetFPS(10);
 
             Random generowanie = new Random();
             float x = 0;
