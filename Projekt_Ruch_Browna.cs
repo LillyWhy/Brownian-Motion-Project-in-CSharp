@@ -38,7 +38,7 @@ namespace Brownian_motion
             const int windowHeight = 768;
 
             Raylib.SetConfigFlags(ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.HighDpiWindow);
-            Raylib.InitWindow(windowWidth, windowHeight, "Projekt Fizyka - Ruchy Browna");
+            Raylib.InitWindow(windowWidth, windowHeight, "Project Brownian Motion");
             Raylib.SetTargetFPS(60);
 
             string nInput = "";
@@ -73,8 +73,8 @@ namespace Brownian_motion
                         LiczbaRuchow = int.Parse(nInput);
                         trasa.Add(new Particle(0, 0));
                         for (int i = 0; i < 500; i++) chmura.Add(new GenereatedNew(0, 0));
-                        plik = new StreamWriter("wyniki_symulacji.xls");
-                        plik.WriteLine("Krok;X;Y");
+                        plik = new StreamWriter("Symulation_results.xls");
+                        plik.WriteLine("Step;X;Y");
                         plik.WriteLine("0;0,000;0,000");
                         inputMode = false;
                         Raylib.SetTargetFPS(10);
@@ -116,8 +116,8 @@ namespace Brownian_motion
 
                 if (inputMode)
                 {
-                    Raylib.DrawText("Projekt Ruch Browna", 250, 200, 30, Color.DarkBlue);
-                    Raylib.DrawText("Podaj liczbe krokow i nacisnij ENTER:", 250, 280, 20, Color.Black);
+                    Raylib.DrawText("Project Brownian Motion", 250, 200, 30, Color.DarkBlue);
+                    Raylib.DrawText("Input number of steps and press ENTER:", 250, 280, 20, Color.Black);
                     Raylib.DrawRectangle(250, 320, 300, 50, Color.LightGray);
                     Raylib.DrawText(nInput, 260, 330, 30, Color.Red);
                 }
@@ -128,13 +128,13 @@ namespace Brownian_motion
                     float lY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
 
                     Raylib.DrawRectangleLinesEx(new Rectangle(srodek.X - lX * skala, srodek.Y - lY * skala, lX * 2 * skala, lY * 2 * skala), 2.0f, Color.LightGray);
-                    foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(0, 200, 0, 100));
+                    foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(200, 0, 200, 200));
                     for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
 
                     Vector2 cur = srodek + (new Vector2(x, y) * skala);
                     Raylib.DrawCircleV(cur, 5, Color.Red);
-                    Raylib.DrawText($"Krok: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
-                    if (SimulationEnds) Raylib.DrawText("ZAKONCZONO - ESC aby wyjsc", 20, 50, 20, Color.Maroon);
+                    Raylib.DrawText($"Step: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
+                    if (SimulationEnds) Raylib.DrawText("Symulation Complete - ESC to exit", 20, 50, 20, Color.Maroon);
                 }
 
                 Raylib.EndDrawing();
