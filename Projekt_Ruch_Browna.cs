@@ -34,107 +34,112 @@ namespace Brownian_motion
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Podaj liczbe ruchow:");
-            string input = Console.ReadLine() ?? "1000";
-            if (!int.TryParse(input, out int LiczbaRuchow)) LiczbaRuchow = 1000;
-
             const int windowWidth = 1024;
             const int windowHeight = 768;
 
             Raylib.SetConfigFlags(ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.HighDpiWindow);
             Raylib.InitWindow(windowWidth, windowHeight, "Projekt Fizyka - Ruchy Browna");
-            Raylib.SetTargetFPS(30);
+            Raylib.SetTargetFPS(60);
+
+            string nInput = "";
+            bool inputMode = true;
+            int LiczbaRuchow = 0;
 
             Random generowanie = new Random();
             float x = 0, y = 0, skala = 15.0f;
-
-            List<Particle> trasa = new List<Particle>();
-            trasa.Add(new Particle(x, y));
-
-            List<GenereatedNew> chmura = new List<GenereatedNew>();
-            for (int i = 0; i < 500; i++) chmura.Add(new GenereatedNew(0, 0));
-
-            using StreamWriter plik = new StreamWriter("wyniki_symulacji.xls");
-            plik.WriteLine("Krok;X;Y");
-            plik.WriteLine("0;0,000;0,000");
-
             int CurrentPosition = 0;
             bool SimulationEnds = false;
 
-            while (!Raylib.WindowShouldClose() && !Raylib.IsKeyDown(KeyboardKey.Escape))
+            List<Particle> trasa = new List<Particle>();
+            List<GenereatedNew> chmura = new List<GenereatedNew>();
+            StreamWriter plik = null;
+
+            while (!Raylib.WindowShouldClose())
             {
-                float limitX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
-                float limitY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
-
-                if (CurrentPosition < LiczbaRuchow)
+                if (inputMode)
                 {
-                    double fi = generowanie.NextDouble() * 2 * Math.PI;
-                    float krokX = (float)Math.Cos(fi);
-                    float krokY = (float)Math.Sin(fi);
+                    int key = Raylib.GetCharPressed();
+                    while (key > 0)
+                    {
+                        if ((key >= 48) && (key <= 57) && (nInput.Length < 7)) nInput += (char)key;
+                        key = Raylib.GetCharPressed();
+                    }
 
-                    if (Math.Abs(x + krokX) > limitX) krokX = -krokX;
-                    if (Math.Abs(y + krokY) > limitY) krokY = -krokY;
+                    if (Raylib.IsKeyPressed(KeyboardKey.Backspace) && nInput.Length > 0)
+                        nInput = nInput.Substring(0, nInput.Length - 1);
 
-                    x += krokX;
-                    y += krokY;
-
-                    trasa.Add(new Particle(x, y));
-                    foreach (var p in chmura) p.Aktualizuj(generowanie, limitX, limitY);
-
-                    CurrentPosition++;
-
-                    string xStr = x.ToString("F3").Replace('.', ',');
-                    string yStr = y.ToString("F3").Replace('.', ',');
-                    plik.WriteLine($"{CurrentPosition};{xStr};{yStr}");
+                    if (Raylib.IsKeyPressed(KeyboardKey.Enter) && nInput.Length > 0)
+                    {
+                        LiczbaRuchow = int.Parse(nInput);
+                        trasa.Add(new Particle(0, 0));
+                        for (int i = 0; i < 500; i++) chmura.Add(new GenereatedNew(0, 0));
+                        plik = new StreamWriter("wyniki_symulacji.xls");
+                        plik.WriteLine("Krok;X;Y");
+                        plik.WriteLine("0;0,000;0,000");
+                        inputMode = false;
+                        Raylib.SetTargetFPS(10);
+                    }
                 }
-                else if (!SimulationEnds)
+                else
                 {
-                    double s = Math.Sqrt(x * x + y * y);
-                    Console.WriteLine("Symulacja zakonczona");
-                    Console.WriteLine($"Odleglosc: {s:F2}");
-                    SimulationEnds = true;
-                }
+                    float limitX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
+                    float limitY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
 
-                float wheel = Raylib.GetMouseWheelMove();
-                if (wheel != 0)
-                {
-                    skala += wheel * 2.0f;
-                    if (skala < 1.0f) skala = 1.0f;
+                    if (CurrentPosition < LiczbaRuchow)
+                    {
+                        double fi = generowanie.NextDouble() * 2 * Math.PI;
+                        float kX = (float)Math.Cos(fi);
+                        float kY = (float)Math.Sin(fi);
+
+                        if (Math.Abs(x + kX) > limitX) kX = -kX;
+                        if (Math.Abs(y + kY) > limitY) kY = -kY;
+
+                        x += kX; y += kY;
+                        trasa.Add(new Particle(x, y));
+                        foreach (var p in chmura) p.Aktualizuj(generowanie, limitX, limitY);
+
+                        CurrentPosition++;
+                        plik.WriteLine($"{CurrentPosition};{x:F3};{y:F3}".Replace('.', ','));
+                    }
+                    else if (!SimulationEnds)
+                    {
+                        SimulationEnds = true;
+                        if (plik != null) { plik.Close(); plik = null; }
+                    }
+
+                    float wheel = Raylib.GetMouseWheelMove();
+                    if (wheel != 0) { skala += wheel * 2.0f; if (skala < 1.0f) skala = 1.0f; }
                 }
 
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.RayWhite);
 
-                Vector2 srodek = new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);
-
-                Raylib.DrawRectangleLinesEx(
-                    new Rectangle(srodek.X - limitX * skala, srodek.Y - limitY * skala, limitX * 2 * skala, limitY * 2 * skala),
-                    2.0f, Color.LightGray
-                );
-
-                foreach (var p in chmura)
+                if (inputMode)
                 {
-                    Vector2 pos = srodek + (p.Pozycja * skala);
-                    Raylib.DrawCircleV(pos, 1.2f, new Color(200, 0, 255, 200));
+                    Raylib.DrawText("Projekt Ruch Browna", 250, 200, 30, Color.DarkBlue);
+                    Raylib.DrawText("Podaj liczbe krokow i nacisnij ENTER:", 250, 280, 20, Color.Black);
+                    Raylib.DrawRectangle(250, 320, 300, 50, Color.LightGray);
+                    Raylib.DrawText(nInput, 260, 330, 30, Color.Red);
                 }
-
-                for (int i = 0; i < trasa.Count - 1; i++)
+                else
                 {
-                    Vector2 p1 = srodek + (trasa[i].Pozycja * skala);
-                    Vector2 p2 = srodek + (trasa[i + 1].Pozycja * skala);
-                    Raylib.DrawLineV(p1, p2, Color.SkyBlue);
+                    Vector2 srodek = new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);
+                    float lX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
+                    float lY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
+
+                    Raylib.DrawRectangleLinesEx(new Rectangle(srodek.X - lX * skala, srodek.Y - lY * skala, lX * 2 * skala, lY * 2 * skala), 2.0f, Color.LightGray);
+                    foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(0, 200, 0, 100));
+                    for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
+
+                    Vector2 cur = srodek + (new Vector2(x, y) * skala);
+                    Raylib.DrawCircleV(cur, 5, Color.Red);
+                    Raylib.DrawText($"Krok: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
+                    if (SimulationEnds) Raylib.DrawText("ZAKONCZONO - ESC aby wyjsc", 20, 50, 20, Color.Maroon);
                 }
-
-                Vector2 currentPos = srodek + (new Vector2(x, y) * skala);
-                Raylib.DrawCircleV(currentPos, 5, Color.Red);
-                Raylib.DrawCircleLines((int)currentPos.X, (int)currentPos.Y, 5, Color.Maroon);
-
-                Raylib.DrawText($"Krok: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
-                if (SimulationEnds) Raylib.DrawText("ZAKONCZONO - ESC", 20, 50, 20, Color.Maroon);
 
                 Raylib.EndDrawing();
             }
-
+            if (plik != null) plik.Close();
             Raylib.CloseWindow();
         }
     }
