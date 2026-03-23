@@ -39,7 +39,6 @@ namespace Brownian_motion
 
             Raylib.SetConfigFlags(ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.HighDpiWindow);
             Raylib.InitWindow(windowWidth, windowHeight, "Project Brownian Motion");
-
             Raylib.SetTargetFPS(60);
 
             string nInput = "";
@@ -52,11 +51,11 @@ namespace Brownian_motion
             bool SimulationEnds = false;
 
             double lastStepTime = 0;
-            double stepInterval = 0.10;
+            double stepInterval = 0.05;
 
             List<Particle> trasa = new List<Particle>();
             List<GenereatedNew> chmura = new List<GenereatedNew>();
-            StreamWriter plik = null;
+            StreamWriter? plik = null;
 
             while (!Raylib.WindowShouldClose())
             {
@@ -88,6 +87,12 @@ namespace Brownian_motion
                 {
                     float limitX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
                     float limitY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
+
+                    if (Raylib.IsKeyDown(KeyboardKey.Equal) || Raylib.IsKeyDown(KeyboardKey.KpAdd))
+                        stepInterval = Math.Max(0.001, stepInterval - 0.002);
+
+                    if (Raylib.IsKeyDown(KeyboardKey.Minus) || Raylib.IsKeyDown(KeyboardKey.KpSubtract))
+                        stepInterval = Math.Min(1.0, stepInterval + 0.002);
 
                     if (CurrentPosition < LiczbaRuchow && Raylib.GetTime() >= lastStepTime + stepInterval)
                     {
@@ -134,18 +139,16 @@ namespace Brownian_motion
                     float lY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
 
                     Raylib.DrawRectangleLinesEx(new Rectangle(srodek.X - lX * skala, srodek.Y - lY * skala, lX * 2 * skala, lY * 2 * skala), 2.0f, Color.LightGray);
-
                     foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(200, 0, 200, 200));
-                    for (int i = 0; i < trasa.Count - 1; i++)
-                    {
-                        Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
-                    }
+                    for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
 
                     Vector2 cur = srodek + (new Vector2(x, y) * skala);
                     Raylib.DrawCircleV(cur, 5, Color.Red);
 
                     Raylib.DrawText($"Step: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
-                    if (SimulationEnds) Raylib.DrawText("Symulation Complete - ESC to exit", 20, 50, 20, Color.Maroon);
+                    Raylib.DrawText($"Speed: {1.0 / stepInterval:F1} steps/sec (+/- to change)", 20, 45, 15, Color.Gray);
+
+                    if (SimulationEnds) Raylib.DrawText("Symulation Complete - ESC to exit", 20, 70, 20, Color.Maroon);
                 }
 
                 Raylib.EndDrawing();
