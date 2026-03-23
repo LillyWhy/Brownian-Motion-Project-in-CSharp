@@ -39,6 +39,7 @@ namespace Brownian_motion
 
             Raylib.SetConfigFlags(ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.HighDpiWindow);
             Raylib.InitWindow(windowWidth, windowHeight, "Project Brownian Motion");
+
             Raylib.SetTargetFPS(60);
 
             string nInput = "";
@@ -49,6 +50,9 @@ namespace Brownian_motion
             float x = 0, y = 0, skala = 15.0f;
             int CurrentPosition = 0;
             bool SimulationEnds = false;
+
+            double lastStepTime = 0;
+            double stepInterval = 0.10;
 
             List<Particle> trasa = new List<Particle>();
             List<GenereatedNew> chmura = new List<GenereatedNew>();
@@ -77,7 +81,7 @@ namespace Brownian_motion
                         plik.WriteLine("Step;X;Y");
                         plik.WriteLine("0;0,000;0,000");
                         inputMode = false;
-                        Raylib.SetTargetFPS(10);
+                        lastStepTime = Raylib.GetTime();
                     }
                 }
                 else
@@ -85,7 +89,7 @@ namespace Brownian_motion
                     float limitX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
                     float limitY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
 
-                    if (CurrentPosition < LiczbaRuchow)
+                    if (CurrentPosition < LiczbaRuchow && Raylib.GetTime() >= lastStepTime + stepInterval)
                     {
                         double fi = generowanie.NextDouble() * 2 * Math.PI;
                         float kX = (float)Math.Cos(fi);
@@ -99,9 +103,11 @@ namespace Brownian_motion
                         foreach (var p in chmura) p.Aktualizuj(generowanie, limitX, limitY);
 
                         CurrentPosition++;
-                        plik.WriteLine($"{CurrentPosition};{x:F3};{y:F3}".Replace('.', ','));
+                        lastStepTime = Raylib.GetTime();
+
+                        if (plik != null) plik.WriteLine($"{CurrentPosition};{x:F3};{y:F3}".Replace('.', ','));
                     }
-                    else if (!SimulationEnds)
+                    else if (CurrentPosition >= LiczbaRuchow && !SimulationEnds)
                     {
                         SimulationEnds = true;
                         if (plik != null) { plik.Close(); plik = null; }
@@ -128,11 +134,16 @@ namespace Brownian_motion
                     float lY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
 
                     Raylib.DrawRectangleLinesEx(new Rectangle(srodek.X - lX * skala, srodek.Y - lY * skala, lX * 2 * skala, lY * 2 * skala), 2.0f, Color.LightGray);
+
                     foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(200, 0, 200, 200));
-                    for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
+                    for (int i = 0; i < trasa.Count - 1; i++)
+                    {
+                        Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
+                    }
 
                     Vector2 cur = srodek + (new Vector2(x, y) * skala);
                     Raylib.DrawCircleV(cur, 5, Color.Red);
+
                     Raylib.DrawText($"Step: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
                     if (SimulationEnds) Raylib.DrawText("Symulation Complete - ESC to exit", 20, 50, 20, Color.Maroon);
                 }
