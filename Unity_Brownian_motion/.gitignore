@@ -1,0 +1,9 @@
+/Library/
+/Temp/
+/Logs/
+/UserSettings/
+/[Bb]uild/
+/MemoryCaptures/
+*.csproj
+*.sln
+*.unitypackage
