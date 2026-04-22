@@ -137,13 +137,14 @@ namespace Brownian_motion
                     Vector2 srodek = new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);
                     float lX = (Raylib.GetScreenWidth() / 2.0f - 20) / skala;
                     float lY = (Raylib.GetScreenHeight() / 2.0f - 20) / skala;
+                    float LineThic = 3.0f;
 
                     Raylib.DrawRectangleLinesEx(new Rectangle(srodek.X - lX * skala, srodek.Y - lY * skala, lX * 2 * skala, lY * 2 * skala), 2.0f, Color.LightGray);
                     foreach (var p in chmura) Raylib.DrawCircleV(srodek + (p.Pozycja * skala), 1.2f, new Color(200, 0, 200, 200));
-                    for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineV(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), Color.SkyBlue);
+                    for (int i = 0; i < trasa.Count - 1; i++) Raylib.DrawLineEx(srodek + (trasa[i].Pozycja * skala), srodek + (trasa[i + 1].Pozycja * skala), LineThic, Color.SkyBlue);
 
                     Vector2 cur = srodek + (new Vector2(x, y) * skala);
-                    Raylib.DrawCircleV(cur, 5, Color.Red);
+                    Raylib.DrawCircleV(cur, 10, Color.Red);
 
                     Raylib.DrawText($"Step: {CurrentPosition} / {LiczbaRuchow}", 20, 20, 20, Color.Black);
                     Raylib.DrawText($"Speed: {1.0 / stepInterval:F1} steps/sec (+/- to change)", 20, 45, 15, Color.Gray);
