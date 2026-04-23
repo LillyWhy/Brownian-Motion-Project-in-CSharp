@@ -10,7 +10,7 @@ Aplikacja zaliczeniowa – projekt z fizyki.
 
 Projekt przedstawia ruch Browna, czyli proces losowy, wręcz chaotyczny, w którym cząsteczka porusza się po płaszczyźnie.
 
-![new_gif](https://github.com/user-attachments/assets/412b8855-597f-4792-9b1b-1fee4fe7012d)
+<img width="1026" height="570" alt="gif_new" src="https://github.com/user-attachments/assets/6c38cdd3-a671-4127-9ee2-e79759584ae6" />
 
 Aplikacja została napisana w języku C# przy użyciu IDE ZED. Generuje ruch za pomocą wydajnego silnika graficznego Raylib-cs.
 Symulacja pozwala na działanie w przedziale od 1 do 240 FPS (klatek na sekundę). 
@@ -68,7 +68,7 @@ Academic Project – Physics Simulation.
 
 This project simulates Brownian motion—a random, almost chaotic process in which a particle moves across a 2D plane.
 
-![new_gif](https://github.com/user-attachments/assets/ee7bef67-1c92-4333-9cb2-f602c6c9cb89)
+<img width="1026" height="570" alt="gif_new" src="https://github.com/user-attachments/assets/6c38cdd3-a671-4127-9ee2-e79759584ae6" />
 
 
 The application was developed in C# using the ZED IDE and utilizes the **Raylib-cs** graphics engine for rendering. 
