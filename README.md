@@ -68,7 +68,7 @@ Academic Project – Physics Simulation.
 
 This project simulates Brownian motion—a random, almost chaotic process in which a particle moves across a 2D plane.
 
-![new_gif](https://github.com/user-attachments/assets/ee7bef67-1c92-4333-9cb2-f602c6c9cb89)
+<img width="1026" height="570" alt="gif_new" src="https://github.com/user-attachments/assets/6c38cdd3-a671-4127-9ee2-e79759584ae6" />
 
 
 The application was developed in C# using the ZED IDE and utilizes the **Raylib-cs** graphics engine for rendering. 
