@@ -10,7 +10,7 @@ Aplikacja zaliczeniowa – projekt z fizyki.
 
 Projekt przedstawia ruch Browna, czyli proces losowy, wręcz chaotyczny, w którym cząsteczka porusza się po płaszczyźnie.
 
-![new_gif](https://github.com/user-attachments/assets/412b8855-597f-4792-9b1b-1fee4fe7012d)
+<img width="1026" height="570" alt="gif_new" src="https://github.com/user-attachments/assets/6c38cdd3-a671-4127-9ee2-e79759584ae6" />9b1b-1fee4fe7012d)
 
 Aplikacja została napisana w języku C# przy użyciu IDE ZED. Generuje ruch za pomocą wydajnego silnika graficznego Raylib-cs.
 Symulacja pozwala na działanie w przedziale od 1 do 240 FPS (klatek na sekundę). 
