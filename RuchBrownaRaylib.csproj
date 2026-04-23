@@ -1,17 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <AssemblyName>RuchBrownaRaylib</AssemblyName>
+    
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+    <UseAppHost>true</UseAppHost>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Raylib-cs" Version="6.0.0" />
-    <None Update="raylib.dll">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
-  </None>
+    <PackageReference Include="Raylib-cs" Version="7.0.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="raylib.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="BundleApp" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'osx-x64' Or '$(RuntimeIdentifier)' == 'osx-arm64'">
+    <PropertyGroup>
+      <AppDir>$(PublishDir)$(AssemblyName).app/Contents</AppDir>
+    </PropertyGroup>
+
+    <RemoveDir Directories="$(PublishDir)$(AssemblyName).app" />
+    <MakeDir Directories="$(AppDir)/MacOS" />
+
+    <Exec Command="cp $(PublishDir)$(AssemblyName) $(AppDir)/MacOS/" />
+    <Exec Command="cp $(PublishDir)raylib.dylib $(AppDir)/MacOS/" />
+
+    <Exec Command="chmod +x $(AppDir)/MacOS/$(AssemblyName)" />
+
+    <Exec Command="install_name_tool -id @loader_path/raylib.dylib $(AppDir)/MacOS/raylib.dylib" />
+    <Exec Command="install_name_tool -change raylib.dylib @loader_path/raylib.dylib $(AppDir)/MacOS/$(AssemblyName)" />
+
+    <Exec Command="codesign --force --deep --sign - $(PublishDir)$(AssemblyName).app || true" />
+    <Exec Command="xattr -cr $(PublishDir)$(AssemblyName).app" />
+    <Exec Command="install_name_tool -id @loader_path/raylib.dylib $(AppDir)/MacOS/raylib.dylib" />
+<Exec Command="install_name_tool -change raylib.dylib @loader_path/raylib.dylib $(AppDir)/MacOS/$(AssemblyName)" />
+    <Message Importance="high" Text="--- SUKCES: Paczka gotowa ---" />
+  </Target>
+
 </Project>
